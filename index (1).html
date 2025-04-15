@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nisomar | Maritime Data Analytics & API Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Nisomar provides maritime intelligence, including port congestion, port turnaround, routes, and distance calculator services powered by AIS data.">
+    <meta name="keywords" content="port congestion, port turnaround, maritime routes, distance calculator, vessel tracking, maritime analytics, port statistics, logistic solutions">
+    <meta name="author" content="Nisomar">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ocean: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-gray-800 antialiased">
+    <!-- Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <svg class="h-8 w-8 text-ocean-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        <a href=""><span class="ml-2 text-xl font-bold text-ocean-800">Nisomar</span></a>
+                    </div>
+                    <div class="hidden md:ml-8 md:flex md:space-x-8">
+                        <a href="#api" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-ocean-600 border-b-2 border-transparent hover:border-ocean-500">API</a>
+                        <a href="#testimonials" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-ocean-600 border-b-2 border-transparent hover:border-ocean-500">Testimonials</a>
+                        <a href="#contact" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-700 hover:text-ocean-600 border-b-2 border-transparent hover:border-ocean-500">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <a href="https://port-dynamics.com" target="_blank" class="hidden md:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-ocean-600 hover:bg-ocean-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-ocean-500 transition-colors duration-300">
+                        <i class="fas fa-chart-line mr-2"></i> Go to Dashboard
+                    </a>
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-md text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobileMenu" class="hidden md:hidden">
+                <div class="px-2 pt-2 pb-3 space-y-1">
+                    <a href="#api" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-ocean-600 hover:bg-gray-50">API</a>
+                    <a href="#testimonials" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-ocean-600 hover:bg-gray-50">Testimonials</a>
+                    <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-ocean-600 hover:bg-gray-50">Contact</a>
+                    <a href="https://port-dynamics.com" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-white bg-ocean-600 hover:bg-ocean-700">Go to Dashboard</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-r from-ocean-800 to-ocean-600 overflow-hidden">
+        <div class="hidden sm:block sm:absolute sm:inset-0">
+            <svg class="absolute bottom-0 right-0 transform translate-x-1/2 mb-48 text-ocean-700 lg:top-0 lg:mt-28 lg:mb-0 xl:transform-none xl:translate-x-0" width="364" height="384" viewBox="0 0 364 384" fill="none">
+                <defs>
+                    <pattern id="eab71dd9-9d7a-47bd-8044-256344ee00d0" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" fill="currentColor" fill-opacity="0.2" />
+                    </pattern>
+                </defs>
+                <rect width="364" height="384" fill="url(#eab71dd9-9d7a-47bd-8044-256344ee00d0)" />
+            </svg>
+        </div>
+        <div class="relative pt-10 pb-16 sm:pt-16 sm:pb-24 lg:pb-32">
+            <div class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20">
+                <div class="text-center lg:text-left lg:flex lg:items-center lg:gap-12">
+                    <div class="lg:w-1/2">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-white sm:text-5xl md:text-6xl lg:text-5xl xl:text-6xl">
+                            <span class="block">Maritime Intelligence</span>
+                            <span class="block text-ocean-100">Powered by AIS Data</span>
+                        </h1>
+                        <p class="mt-3 text-base text-ocean-100 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                            Transform raw shipping data into actionable insights. Our comprehensive API delivers real-time vessel tracking, port statistics, and predictive analytics to optimize your maritime operations.
+                        </p>
+                        <div class="mt-10 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#api" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-ocean-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10">
+                                    Explore API
+                                </a>
+                            </div>
+                            <div class="mt-3 sm:mt-0 sm:ml-3">
+                                <a href="#features" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-ocean-500 bg-opacity-60 hover:bg-opacity-70 md:py-4 md:text-lg md:px-10">
+                                    <i class="fas fa-layer-group mr-2"></i> Features
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-12 lg:mt-0 lg:w-1/2 hidden lg:flex lg:justify-center lg:items-center">
+                        <div class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-md">
+                            <div class="relative block w-full bg-white rounded-lg overflow-hidden">
+                               <video class="w-full h-auto rounded-lg border border-gray-200 shadow-md" autoplay loop muted playsinline>
+                                    <source src="./ship_analytics.mov" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="bg-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+                <div class="bg-ocean-50 overflow-hidden shadow-sm rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:bg-ocean-100">
+                    <div class="px-4 py-5 sm:p-6 text-center">
+                        <dt class="text-sm font-medium text-gray-500 truncate">Vessels Tracked</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-ocean-600">40,000</dd>
+                    </div>
+                </div>
+                <div class="bg-ocean-50 overflow-hidden shadow-sm rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:bg-ocean-100">
+                    <div class="px-4 py-5 sm:p-6 text-center">
+                        <dt class="text-sm font-medium text-gray-500 truncate">Global Ports</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-ocean-600">1,900+</dd>
+                    </div>
+                </div>
+                <div class="bg-ocean-50 overflow-hidden shadow-sm rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg hover:bg-ocean-100">
+                    <div class="px-4 py-5 sm:p-6 text-center">
+                        <dt class="text-sm font-medium text-gray-500 truncate">Data Points Daily</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-ocean-600">4M</dd>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-base text-ocean-600 font-semibold tracking-wide uppercase">Features</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Maritime Intelligence Platform
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our advanced analytics transform complex AIS data into clear, actionable insights for maritime stakeholders.
+                </p>
+            </div>
+
+            <div class="mt-16">
+                <div class="space-y-12 lg:space-y-0 grid grid-rows-1 lg:grid-cols-3 lg:gap-x-8">
+                    <div class="relative">
+                        <div class="relative pb-7/12 lg:pt-0">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <a href="http://port-dynamics.com" target="_blank"><i class="fas fa-ship text-6xl text-ocean-500"></i></a>
+                            </div>
+                        </div>
+                        <div class="relative text-center px-4">
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Vessel Tracking</h3>
+                            <p class="mt-5 text-base text-gray-500">
+                                Real-time tracking of vessel positions, speed, heading, destination and ETA validation based on optimal route. Historical voyage data with advanced filtering and search capabilities.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="relative pb-7/12 lg:pt-0">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <a href="http://port-dynamics.com" target="_blank"><i class="fas fa-chart-line text-6xl text-ocean-500"></i></a>
+                            </div>
+                        </div>
+                        <div class="relative text-center px-4">
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Port Analytics</h3>
+                            <p class="mt-5 text-base text-gray-500">
+                                Port congestion metrics, berth utilization statistics, and vessel waiting times. Identify bottlenecks and optimize port operations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="relative">
+                        <div class="relative pb-7/12 lg:pt-0">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <a href="https://port-dynamics.com/" target="_blank"><i class="fas fa-brain text-6xl text-ocean-500"></i></a>
+                            </div>
+                        </div>
+                        <div class="relative text-center px-4">
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Predictive Intelligence</h3>
+                            <p class="mt-5 text-base text-gray-500">
+                                With Machine learning algorithms we predict the impact of competitors vessels and seasonal effect on turnaround times and the likelihood of vessel performance repercussions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-10 border-gray-200">
+            <div class="text-center">
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Other
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    We dont just offer maritime intelligence, we also offer other services to help you get the most out of your data.
+                </p>
+            </div>
+            <div class="mt-16">
+                <div class="space-y-12 lg:space-y-0 grid grid-rows-1 lg:grid lg:grid-cols-2 lg:gap-x-8">
+                    <div class="relative">
+                        <div class="relative pb-7/12 lg:pt-0">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <i class="fas fa-user-tie text-6xl text-ocean-500"></i>
+                            </div>
+                        </div>
+                        <div class="relative text-center px-4">
+                            <h3 class="mt-8 text-lg font-medium text-gray-900">Consultancy</h3>
+                            <p class="mt-5 text-base text-gray-500">
+                                Leverage our maritime expertise and data analytics capabilities to optimize your operations. Our consultants provide tailored solutions for route optimization, fleet efficiency, port selection, and strategic planning - all backed by comprehensive AIS data analysis and industry insights.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="relative pb-7/12 lg:pt-0">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <a  href="https://conscom.co.uk" target="_blank"> <i class="fas fa-shipping-fast text-6xl text-ocean-500"></i></a>
+                            </div>
+                        </div>
+                        <div class="relative text-center px-4">
+                            <h3 class="mt-8 text-lg font-medium text-gray-900"><a href="https://conscom.co.uk">Concscom</a></h3>
+                            <p class="mt-5 text-base text-gray-500">
+                                Keeping a fleet of vessels operational depends on the management of spare parts and other supplies. ConsCom enables communication between suppliers and logistics providers powered by AIS data to save costs and improve efficiency.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="space-y-12 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-x-8">
+                    <div class="relative col-start-2 col-span-1 mt-8">
+                        
+                        <a href="#contact" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-ocean-600 hover:bg-ocean-700">
+                            <i class="fas fa-headset mr-2"></i> Contact Sales
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div class="relative bg-gradient-to-r from-ocean-800 to-ocean-600 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-3xl font-extrabold text-white sm:text-4xl">
+                        Interactive Maritime Dashboard
+                    </h2>
+                    <p class="mt-3 max-w-3xl text-lg text-ocean-100">
+                        Access our powerful analytics dashboard for intuitive visualization of maritime data. Customizable reports, interactive maps, and real-time alerts all in one place.
+                    </p>
+                    <div class="mt-10">
+                        <a href="https://dashboard.example.com" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-ocean-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-ocean-700 focus:ring-white">
+                            <i class="fas fa-external-link-alt mr-2"></i> Go to Dashboard
+                        </a>
+                    </div>
+                    <div class="mt-6 grid grid-cols-2 gap-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-ocean-100 text-xl"></i>
+                            </div>
+                            <p class="ml-3 text-sm text-ocean-100">
+                                <span class="font-medium text-white">Interactive Maps</span><br>
+                                Visualize vessel movements and port activity
+                            </p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-ocean-100 text-xl"></i>
+                            </div>
+                            <p class="ml-3 text-sm text-ocean-100">
+                                <span class="font-medium text-white">Custom Alerts</span><br>
+                                Get notified about critical maritime events
+                            </p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-ocean-100 text-xl"></i>
+                            </div>
+                            <p class="ml-3 text-sm text-ocean-100">
+                                <span class="font-medium text-white">Data Export</span><br>
+                                Download reports in multiple formats
+                            </p>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-ocean-100 text-xl"></i>
+                            </div>
+                            <p class="ml-3 text-sm text-ocean-100">
+                                <span class="font-medium text-white">User Management</span><br>
+                                Control access with role-based permissions
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-10 lg:mt-0 lg:relative">
+                    <div class="relative mx-auto w-full rounded-lg shadow-lg lg:max-w-2xl xl:max-w-3xl">
+                        <div class="relative block w-full bg-white rounded-lg overflow-hidden shadow-lg hidden md:block">
+                            <!-- Dashboard simulation to prevent having to purchase a dashboard image -->
+                            <div class="h-[400px] bg-gradient-to-br from-ocean-900 to-ocean-800 p-6">
+                                <!-- Dashboard Header -->
+                                <div class="flex items-center justify-between mb-6">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-3 h-3 bg-red-400 rounded-full"></div>
+                                        <div class="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                                        <div class="w-3 h-3 bg-green-400 rounded-full"></div>
+                                    </div>
+                                    <div class="flex items-center space-x-4">
+                                        <i class="fas fa-bell text-ocean-300"></i>
+                                        <i class="fas fa-cog text-ocean-300"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Dashboard Content -->
+                                <div class="grid grid-cols-3 gap-4 mb-6">
+                                    <!-- Stats Cards -->
+                                    <div class="bg-ocean-800/50 p-4 rounded-lg backdrop-blur-sm">
+                                        <div class="text-ocean-300 text-sm mb-1">Vessels Tracked</div>
+                                        <div class="text-white text-2xl font-bold">2,451</div>
+                                        <div class="text-ocean-400 text-xs mt-2">↑ 12% from last week</div>
+                                    </div>
+                                    <div class="bg-ocean-800/50 p-4 rounded-lg backdrop-blur-sm">
+                                        <div class="text-ocean-300 text-sm mb-1">Active Ports</div>
+                                        <div class="text-white text-2xl font-bold">156</div>
+                                        <div class="text-ocean-400 text-xs mt-2">↑ 5% from last week</div>
+                                    </div>
+                                    <div class="bg-ocean-800/50 p-4 rounded-lg backdrop-blur-sm">
+                                        <div class="text-ocean-300 text-sm mb-1">Routes Created</div>
+                                        <div class="text-white text-2xl font-bold">847</div>
+                                        <div class="text-ocean-400 text-xs mt-2">↑ 18% from last week</div>
+                                    </div>
+                                </div>
+                        
+                                <!-- Chart Area -->
+                                <div class="bg-ocean-800/30 rounded-lg p-4 backdrop-blur-sm">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="text-ocean-100 text-sm font-medium">Port Activity</div>
+                                        <div class="flex space-x-2">
+                                            <div class="px-2 py-1 bg-ocean-700/50 rounded text-ocean-300 text-xs">Daily</div>
+                                            <div class="px-2 py-1 bg-ocean-700/50 rounded text-ocean-300 text-xs">Weekly</div>
+                                            <div class="px-2 py-1 bg-ocean-700/50 rounded text-ocean-300 text-xs">Monthly</div>
+                                        </div>
+                                    </div>
+                                    <!-- Simulated Chart Bars -->
+                                    <div class="flex items-end h-24 space-x-2">
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 40%"></div>
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 65%"></div>
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 85%"></div>
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 55%"></div>
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 75%"></div>
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 45%"></div>
+                                        <div class="w-8 bg-ocean-500 rounded-t" style="height: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Section -->
+    <div id="api" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-base text-ocean-600 font-semibold tracking-wide uppercase">API</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Easy to Integrate
+                </p>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    Our RESTful API provides programmatic access to our maritime intelligence platform. Integrate port congestion, long stops , port status and more into your own applications.
+                </p>
+            </div>
+                <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="border border-gray-200 bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Current Port Congestion</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Our port congestion api returns a list of facilities and their congestion stats for a given port.The API returns the following:
+                            </p>
+                            <div class="mt-4">
+                                <ul class="list-disc list-inside text-sm text-gray-500 space-y-2">
+                                    <li>Turnaround hrs recent</li>
+                                    <li>Average turnaround hrs</li>
+                                    <li>Status ( congested, normal )</li>
+                                    <li>Score</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Long Stops</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Our Long Stop API returns a list of vessels that have stopped for more than 3 days in a given time period. The API returns the following:
+                            </p>
+                            <div class="mt-4">
+                                <ul class="list-disc list-inside text-sm text-gray-500 space-y-2">
+                                    <li>Last Dry Dock Name</li>
+                                    <li>Shipyard Duration</li>
+                                    <li>Shipyard Exited on (UTC timestamp)</li>
+                                    <li>List of stops</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border border-gray-200 bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-6">
+                            <h3 class="text-lg font-medium text-gray-900">Current Port Status</h3>
+                            <p class="mt-2 text-base text-gray-500">
+                                Our port status API returns information about vessels heading to a port, at the approaches or in a facility. The API returns the following:
+                            </p>
+                            <div class="mt-4">
+                                <ul class="list-disc list-inside text-sm text-gray-500 space-y-2">
+                                    <li>Vessels arriving at the port</li>
+                                    <li>Vessels at the approaches</li>
+                                    <li>Vessels in the port</li>
+                                    <li>Vessels in a facility</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10 text-center">
+                    <a href="https://port-dynamics.com/api/v1/docs/" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-ocean-600 hover:bg-ocean-700">
+                        View API Documentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Try Routes Section -->
+<div class="relative py-24 overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-gradient-to-r from-ocean-900 to-ocean-800">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"%239C92AC\" fill-opacity=\"0.05\" fill-rule=\"evenodd\"%3E%3Ccircle cx=\"3\" cy=\"3\" r=\"3\"%2F%3E%3Ccircle cx=\"13\" cy=\"13\" r=\"3\"%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-20"></div>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+            <!-- Left Column: Content -->
+            <div class="text-center lg:text-left mb-12 lg:mb-0">
+                <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-ocean-100 text-ocean-800">
+                    Try it Free
+                </span>
+                <h2 class="mt-4 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Optimize Your Maritime Routes
+                </h2>
+                <p class="mt-4 text-lg text-ocean-100">
+                    Experience the power of our Routes service. Calculate optimal paths, estimate fuel consumption, and receive real-time weather data - all in one platform.
+                </p>
+                <ul class="mt-8 space-y-4 text-ocean-100">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-ocean-400 mr-3"></i>
+                        <span>Advanced route optimization algorithms</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-ocean-400 mr-3"></i>
+                        <span>ETA</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-ocean-400 mr-3"></i>
+                        <span>Distance (nm)</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-ocean-400 mr-3"></i>
+                        <span>ECA Distance (nm)</span>
+                    </li>
+                </ul>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="https://port-dynamics.com/routes/services/distance/calculator/" target="_blank" 
+                       class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-ocean-800 bg-white shadow-sm hover:bg-ocean-50 transform hover:scale-105 transition-all duration-200">
+                        Try Routes Free
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    <a href="#contact" 
+                       class="inline-flex items-center px-6 py-3 border-2 border-ocean-400 text-base font-medium rounded-md text-white hover:bg-ocean-700 transform hover:scale-105 transition-all duration-200">
+                        Schedule Demo
+                        <i class="fas fa-calendar-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Preview -->
+            <div class="relative">
+                <div class="hidden md:block w-full lg:w-[120%] xl:w-[130%]">
+                    <div class="relative block w-full bg-white overflow-hidden shadow-2xl">
+                        <div class="aspect-w-16 aspect-h-9">
+                            <button 
+                                onclick="openVideoModal()"
+                                class="w-full h-[350px] bg-gradient-to-br from-ocean-700 to-ocean-900 rounded-xl flex items-center justify-center group hover:from-ocean-800 hover:to-ocean-950 transition-all duration-300 shadow-lg">
+                                <div class="flex flex-col items-center">
+                                    <i class="fas fa-play-circle text-7xl text-white group-hover:scale-110 transition-transform duration-300"></i>
+                                    <span class="mt-6 text-lg text-white font-medium">Watch Demo</span>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+               <!-- Add this modal markup at the end of the body but before the closing body tag -->
+                <div id="videoModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
+                    <div class="flex items-center justify-center min-h-screen p-4">
+                        <div class="relative w-full max-w-6xl mx-auto">
+                            <button 
+                                onclick="closeVideoModal()" 
+                                class="absolute -top-12 right-0 text-white hover:text-ocean-300 transition-colors">
+                                <i class="fas fa-times text-3xl"></i>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                            <div class="aspect-w-16 aspect-h-9">
+                                <video 
+                                    id="modalVideo"
+                                    class="w-full h-full object-cover" 
+                                    controls
+                                    playsinline>
+                                    <source src="./routes_demo.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!-- Testimonials Section -->
+    <div id="testimonials" class="bg-gray-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-base text-ocean-600 font-semibold tracking-wide uppercase">Testimonials</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    Trusted by Maritime Leaders
+                </p>
+            </div>
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 md:grid-cols-1 lg:grid-cols-1">
+
+                    <!-- <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-ocean-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-600 italic">
+                                    "The port congestion analytics have become an essential tool for our fleet management. We now optimize port calls based on predictive data, saving millions annually."
+                                </p>
+                                <div class="mt-4 flex items-center">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Sarah Johnson</p>
+                                        <p class="text-sm text-gray-500">Fleet Manager, Atlantic Maritime</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-ocean-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <p class="text-gray-600 italic">
+                                    "We integrated Nisomar's API into our supply chain platform with ease. The developer documentation is comprehensive and the support team is responsive."
+                                </p>
+                                <div class="mt-4 flex items-center">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-900">Steffen Johnstad Moller</p>
+                                        <p class="text-sm text-gray-500">Founder and CEO, BlueKey</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div id="contact" class="bg-ocean-700">
+        <div class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-white text-center mb-12">
+                Contact Our Team
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- API Access Contact -->
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-ocean-100 mb-4">
+                            <i class="fas fa-code text-2xl text-ocean-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">API and Dashboard Support</h3>
+                        <p class="text-gray-600 mb-4">Contact our technical team below</p>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <p class="font-medium text-gray-900">Adrian Dickinson</p>
+                                <a href="mailto:james.smith@nisomar.com" class="text-gray-600 hover:text-ocean-600"><i class="fas fa-envelope mr-2 text-ocean-600"></i>IT Manager</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-ocean-100 mb-4">
+                            <i class="fas fa-dollar-sign text-2xl text-ocean-600"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">Sales and General Enquires</h3>
+                        <p class="text-gray-600 mb-4">Contact the team below</p>
+                        
+                        <div class="space-y-5">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <p class="font-medium text-gray-900">Patricia Bushnell</p>
+                                    <a href="mailto:patricia.bushnell@nisomar.com" class="text-gray-600 hover:text-ocean-600"><i class="fas fa-envelope mr-2 text-ocean-600"></i>Sales Manager</a>
+                                </div>
+                                <div>
+                                    <p class="font-medium text-gray-900">Claus Hyldager</p>
+                                    <a href="mailto:claus.hyldager@nisomar.com" class="text-gray-600 hover:text-ocean-600"><i class="fas fa-envelope mr-2 text-ocean-600"></i>CEO</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                            
+    <!-- Footer -->
+    <footer class="bg-gray-800">
+        <div class="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1">
+                    <div class="flex items-center">
+                        <svg class="h-8 w-8 text-ocean-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        <span class="ml-2 text-xl font-bold text-white">Nisomar</span>
+                    </div>
+                    <p class="mt-4 text-gray-300 text-sm">
+                        Transforming maritime data into actionable intelligence for shipping companies worldwide since 2015.
+                    </p>
+                    <div class="mt-6 flex space-x-6">
+                        <a href="https://www.linkedin.com/in/claus-hyldager-27b11512/" target="_blank" class="text-gray-400 hover:text-white">
+                            <span class="sr-only">LinkedIn</span>
+                            <i class="fab fa-linkedin text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                        Solutions
+                    </h3>
+                    <ul class="mt-4 space-y-4">
+                        <li>
+                            <a href="https://port-dynamics.com/api/v1/docs/#ports-congestion-facility-list" class="text-base text-gray-300 hover:text-white" target="_blank">
+                                Port Congestion
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://port-dynamics.com/api/v1/docs/#ships-stops-long-list" class="text-base text-gray-300 hover:text-white" target="_blank">
+                                Long Stops
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://port-dynamics.com/api/v1/docs/#ports-status-list" class="text-base text-gray-300 hover:text-white" target="_blank">
+                                Port Status
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://port-dynamics.com/api/v1/docs/#openships-list" class="text-base text-gray-300 hover:text-white" target="_blank">
+                               Open Ships
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">
+                        Resources
+                    </h3>
+                    <ul class="mt-4 space-y-4">
+                        <li>
+                            <a href="https://port-dynamics.com/api/v1/docs/#" class="text-base text-gray-300 hover:text-white" target="_blank">
+                                Documentation
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#api" class="text-base text-gray-300 hover:text-white">
+                                API Reference
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://port-dynamics.com" target="_blank" class="text-base text-gray-300 hover:text-white">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="text-base text-gray-300 hover:text-white">
+                                Support
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700">
+                <p class="text-base text-gray-400 text-center">
+                    &copy; 2025 Nisomar. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+        function openVideoModal() {
+        const modal = document.getElementById('videoModal');
+        const video = document.getElementById('modalVideo');
+        modal.classList.remove('hidden');
+        video.play();
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+    }
+
+    function closeVideoModal() {
+        const modal = document.getElementById('videoModal');
+        const video = document.getElementById('modalVideo');
+        modal.classList.add('hidden');
+        video.pause();
+        video.currentTime = 0;
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Close modal when clicking outside the video
+    document.getElementById('videoModal').addEventListener('click', function(e) {
+        if (e.target === this) {
+            closeVideoModal();
+        }
+    });
+
+    // Close modal with escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && !document.getElementById('videoModal').classList.contains('hidden')) {
+            closeVideoModal();
+        }
+    });
+    </script>
+</body>
+</html>
