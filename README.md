@@ -79,18 +79,18 @@ The website showcases Nisomar's API services powered by AIS (Automatic Identific
 
 ### Deployment
 
-Since this is a static site, deployment options include:
-- **Traditional Web Hosting**: pull changes to a nginx folder
+Since this is a static site, deployment(making changes) steps include:
+- **Traditional Web Hosting**:
     - push changes to github
     - login to conscomserver
     - navigate to  /usr/share/nginx/html/marketing/
     - git pull
+    - refresh the page(refresh cache if no changes seen ctrl/cmd+shift+r)
 
 
 ### Troubleshooting
- # if the website is not reachable its probably due to the ssl needing updating. Conscom and nisomar domains use free letsencrypt certificate, these need be 
-    # renewed every 6 months.
-    # need to stop nginx first
+ # if the website is not reachable its probably due to the ssl needing updating. Conscom and nisomar domains use free letsencrypt certificate, these need be updated every 6 months
+    # To renew the certificates you need to stop nginx first
     ```
     sudo systemctl stop nginx
     sudo certbot renew 
